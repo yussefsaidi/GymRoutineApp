@@ -3,63 +3,36 @@ package com.yussefsaidi.gymroutine.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Exercise implements Parcelable {
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
 
+@Entity(tableName = "exercises")
+public class Exercise {
+    
+    @PrimaryKey(autoGenerate = true)
     private int id;
+    @ColumnInfo(name = "name")
     private String name;
-    private String description;
-    private String category;
+    @ColumnInfo(name = "sets")
+    private String sets;
+    @ColumnInfo(name = "repetitions")
+    private String repetitions;
 
+    @Ignore
     public Exercise() {
     }
 
-    public Exercise(int id, String name, String description, String category) {
-        this.id = id;
+    public Exercise(String name, String sets, String repetitions) {
         this.name = name;
-        this.description = description;
-        this.category = category;
+        this.sets = sets;
+        this.repetitions = repetitions;
     }
 
+    public int getId() { return id; }
 
-    protected Exercise(Parcel in) {
-        id = in.readInt();
-        name = in.readString();
-        description = in.readString();
-        category = in.readString();
-    }
-
-    public static final Creator<Exercise> CREATOR = new Creator<Exercise>() {
-        @Override
-        public Exercise createFromParcel(Parcel in) {
-            return new Exercise(in);
-        }
-
-        @Override
-        public Exercise[] newArray(int size) {
-            return new Exercise[size];
-        }
-    };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(id);
-        parcel.writeString(name);
-        parcel.writeString(description);
-        parcel.writeString(category);
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    public void setId(int id) { this.id = id; }
 
     public String getName() {
         return name;
@@ -69,20 +42,20 @@ public class Exercise implements Parcelable {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getSets() {
+        return sets;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setSets(String sets) {
+        this.sets = sets;
     }
 
-    public String getCategory() {
-        return category;
+    public String getRepetitions() {
+        return repetitions;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setRepetitions(String repetitions) {
+        this.repetitions = repetitions;
     }
 
     @Override
@@ -90,8 +63,8 @@ public class Exercise implements Parcelable {
         return "Exercise{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", category='" + category + '\'' +
+                ", sets='" + sets + '\'' +
+                ", repetitions='" + repetitions + '\'' +
                 '}';
     }
 }
