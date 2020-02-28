@@ -75,4 +75,9 @@ dependencies {
     // Reactive streams (convert Observable to LiveData)
     def reactivestreams_version = "1.2.1"
     implementation "android.arch.lifecycle:reactivestreams:$reactivestreams_version"
+
+    // Room Persistence
+    def room_version = "2.2.3"
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version" // For Kotlin use kapt instead of annotationProcessor
 }
