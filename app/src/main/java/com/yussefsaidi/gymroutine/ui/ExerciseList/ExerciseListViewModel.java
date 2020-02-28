@@ -10,8 +10,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 
 import com.yussefsaidi.gymroutine.models.Exercise;
-import com.yussefsaidi.gymroutine.network.ExerciseList.ExerciseListApi;
-import com.yussefsaidi.gymroutine.network.ExerciseList.ExerciseSearchResponse;
+
 
 import java.util.List;
 
@@ -25,33 +24,8 @@ public class ExerciseListViewModel extends ViewModel {
 
     private static final String TAG = "ExerciseListViewModel";
 
-    private final ExerciseListApi exerciseListApi;
-
-    private MediatorLiveData<ExerciseSearchResponse> exerciseList = new MediatorLiveData<>();
-
     @Inject
-    public ExerciseListViewModel(ExerciseListApi exerciseListApi){
-        this.exerciseListApi = exerciseListApi;
+    public ExerciseListViewModel(){
         Log.d(TAG, "ExerciseListViewModel: viewmodel is working");
-    }
-
-    public void getExerciseList(){
-        final LiveData<ExerciseSearchResponse> source = LiveDataReactiveStreams.fromPublisher(
-                exerciseListApi.getExerciseList()
-                .subscribeOn(Schedulers.io())
-        );
-
-        exerciseList.addSource(source, new Observer<ExerciseSearchResponse>() {
-            @Override
-            public void onChanged(ExerciseSearchResponse exerciseSearchResponse) {
-                exerciseList.setValue(exerciseSearchResponse);
-                exerciseList.removeSource(source);
-            }
-        });
-
-    }
-
-    public LiveData<ExerciseSearchResponse> observeExerciseList(){
-        return exerciseList;
     }
 }

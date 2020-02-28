@@ -11,7 +11,6 @@ import android.util.Log;
 
 import com.bumptech.glide.RequestManager;
 import com.yussefsaidi.gymroutine.R;
-import com.yussefsaidi.gymroutine.network.ExerciseList.ExerciseSearchResponse;
 import com.yussefsaidi.gymroutine.viewmodels.ViewModelProviderFactory;
 
 import javax.inject.Inject;
@@ -41,19 +40,7 @@ public class ExerciseListActivity extends DaggerAppCompatActivity {
         setContentView(R.layout.layout_exercise_list);
 
         viewModel = new ViewModelProvider(this, providerFactory).get(ExerciseListViewModel.class);
-        viewModel.getExerciseList();
-        subscribeObservers();
-
     }
 
-    private void subscribeObservers() {
-        viewModel.observeExerciseList().observe(this, new Observer<ExerciseSearchResponse>() {
-            @Override
-            public void onChanged(ExerciseSearchResponse exerciseSearchResponse) {
-                if(exerciseSearchResponse != null){
-                    Log.d(TAG, "onChanged: " + exerciseSearchResponse.getExercises().get(1));
-                }
-            }
-        });
-    }
+
 }
