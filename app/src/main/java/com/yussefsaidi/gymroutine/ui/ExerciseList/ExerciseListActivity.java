@@ -40,7 +40,6 @@ public class ExerciseListActivity extends DaggerAppCompatActivity {
 
         viewModel = new ViewModelProvider(this, providerFactory).get(ExerciseListViewModel.class);
 
-        mRecyclerView = findViewById(R.id.recyclerView);
 
     }
 }
