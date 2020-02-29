@@ -1,17 +1,19 @@
 package com.yussefsaidi.gymroutine.ui.ExerciseList;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.DownloadManager;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.bumptech.glide.RequestManager;
 import com.yussefsaidi.gymroutine.R;
+import com.yussefsaidi.gymroutine.persistence.models.Exercise;
 import com.yussefsaidi.gymroutine.viewmodels.ViewModelProviderFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -33,6 +35,7 @@ public class ExerciseListActivity extends DaggerAppCompatActivity {
     RecyclerView mRecyclerView;
 
     // vars
+    LiveData<List<Exercise>> exerciseList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,18 @@ public class ExerciseListActivity extends DaggerAppCompatActivity {
         setContentView(R.layout.layout_exercise_list);
 
         viewModel = new ViewModelProvider(this, providerFactory).get(ExerciseListViewModel.class);
+        addExercises();
+        viewModel.getAllExercises();
+        exerciseList = viewModel.getExercisesLiveData();
+        Log.d(TAG, "onCreate: ExerciseList " + exerciseList.getValue());
+    }
+
+    public void addExercises(){
+
+
+        Exercise exercise = new Exercise("TEST TEST", "5", "5");
+        viewModel.insertExercises(exercise);
+
     }
 
 

@@ -1,31 +1,89 @@
 package com.yussefsaidi.gymroutine.ui.ExerciseList;
 
-import android.provider.MediaStore;
+import android.app.VoiceInteractor;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.LiveDataReactiveStreams;
-import androidx.lifecycle.MediatorLiveData;
-import androidx.lifecycle.Observer;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.yussefsaidi.gymroutine.models.Exercise;
 
+import com.yussefsaidi.gymroutine.persistence.ExerciseRepository;
+import com.yussefsaidi.gymroutine.persistence.models.Exercise;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.rxjava3.annotations.NonNull;
-import io.reactivex.rxjava3.disposables.Disposable;
-import io.reactivex.rxjava3.schedulers.Schedulers;
+import io.reactivex.Completable;
+import io.reactivex.Observable;
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.observers.DisposableSingleObserver;
+import io.reactivex.schedulers.Schedulers;
+
 
 public class ExerciseListViewModel extends ViewModel {
 
     private static final String TAG = "ExerciseListViewModel";
+    private MutableLiveData<List<Exercise>> exerciseListLiveData;
+    private CompositeDisposable compositeDisposable;
+    @Inject
+    ExerciseRepository exerciseRepository;
 
     @Inject
     public ExerciseListViewModel(){
+
         Log.d(TAG, "ExerciseListViewModel: viewmodel is working");
+        exerciseListLiveData = new MutableLiveData<>();
+        compositeDisposable = new CompositeDisposable();
+    }
+
+
+    public void getAllExercises(){
+        exerciseRepository.getAllExercises()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableSingleObserver<List<Exercise>>() {
+                    @Override
+                    public void onSuccess(List<Exercise> exercises) {
+                        try{
+                            Log.d(TAG, "onSuccess: Exercises Retrieved from Database");
+                            Log.d(TAG, "onSuccess: " + exercises.toString());
+                            onExercisesFetched(exercises);
+                        } catch(Throwable ex){
+                            dispose();
+                            onError(ex);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                    }
+                });
+
+        //compositeDisposable.add(exercisesDisposable);
+    }
+
+    public LiveData<List<Exercise>> getExercisesLiveData(){
+        return exerciseListLiveData;
+    }
+
+    private void onExercisesFetched(List<Exercise> allExercises){
+        exerciseListLiveData.setValue(allExercises);
+    }
+
+    private void onError(Throwable throwable){
+        Log.d(TAG, "onError: " + throwable.getMessage());
+    }
+
+    public void insertExercises(Exercise... exercises){
+
+        exerciseRepository.insertExercises(exercises)
+                .subscribeOn(Schedulers.io())
+                .subscribe();
     }
 }

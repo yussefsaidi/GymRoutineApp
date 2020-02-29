@@ -1,7 +1,4 @@
-package com.yussefsaidi.gymroutine.models;
-
-import android.os.Parcel;
-import android.os.Parcelable;
+package com.yussefsaidi.gymroutine.persistence.models;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
