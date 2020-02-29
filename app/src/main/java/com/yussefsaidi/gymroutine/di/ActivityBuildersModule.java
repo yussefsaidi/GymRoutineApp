@@ -1,9 +1,7 @@
 package com.yussefsaidi.gymroutine.di;
 
-import com.yussefsaidi.gymroutine.di.ExerciseList.ExerciseListModule;
 import com.yussefsaidi.gymroutine.di.ExerciseList.ExerciseListViewModelsModule;
 import com.yussefsaidi.gymroutine.ui.ExerciseList.ExerciseListActivity;
-import com.yussefsaidi.gymroutine.ui.ExerciseList.ExerciseListViewModel;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -12,7 +10,7 @@ import dagger.android.ContributesAndroidInjector;
 public abstract class ActivityBuildersModule {
 
     @ContributesAndroidInjector(
-            modules = {ExerciseListViewModelsModule.class, ExerciseListModule.class}
+            modules = {ExerciseListViewModelsModule.class}
     )
     abstract ExerciseListActivity contributeExerciseListActivity();
 
