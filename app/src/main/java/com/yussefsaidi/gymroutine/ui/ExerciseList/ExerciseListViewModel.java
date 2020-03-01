@@ -18,7 +18,8 @@ public class ExerciseListViewModel extends ViewModel {
 
     private static final String TAG = "ExerciseListViewModel";
     private MutableLiveData<List<Exercise>> exerciseListLiveData;
-    private CompositeDisposable compositeDisposable;
+
+
     @Inject
     ExerciseRepository exerciseRepository;
 
@@ -27,7 +28,6 @@ public class ExerciseListViewModel extends ViewModel {
 
         Log.d(TAG, "ExerciseListViewModel: viewmodel is working");
         exerciseListLiveData = new MutableLiveData<>();
-        compositeDisposable = new CompositeDisposable();
     }
 
 
