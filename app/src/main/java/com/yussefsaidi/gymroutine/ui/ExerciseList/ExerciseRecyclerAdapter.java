@@ -1,32 +1,49 @@
 package com.yussefsaidi.gymroutine.ui.ExerciseList;
 
+import android.app.Activity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.yussefsaidi.gymroutine.R;
+import com.yussefsaidi.gymroutine.persistence.ExerciseRepository;
 import com.yussefsaidi.gymroutine.persistence.models.Exercise;
+import com.yussefsaidi.gymroutine.viewmodels.ViewModelProviderFactory;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
 
 public class ExerciseRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private ArrayList<Exercise> mExercises;
+    // vars
+    private List<Exercise> mExercises = new ArrayList<>();
     private static final String TAG = "ExerciseRecyclerAdapter";
+    private ExerciseRepository exerciseRepository;
 
-    public ExerciseRecyclerAdapter(ArrayList<Exercise> exercises) {
-        this.mExercises = exercises;
+    @Inject
+    public ExerciseRecyclerAdapter(ExerciseRepository exerciseRepository){
+        this.exerciseRepository = exerciseRepository;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // For editing
+        Log.d(TAG, "onCreateViewHolder: repository instance null? " + exerciseRepository.toString());
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_exercise_list_item, parent, false);
-        final ExerciseViewHolder holder = new ExerciseViewHolder(view);
-
+        final ExerciseViewHolder holder = new ExerciseViewHolder(view, exerciseRepository);
         return holder;
     }
 
@@ -46,5 +63,11 @@ public class ExerciseRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
     @Override
     public int getItemCount() {
         return mExercises.size();
+    }
+
+
+    public void setExercises(List<Exercise> exercises){
+        mExercises = exercises;
+        notifyDataSetChanged();
     }
 }

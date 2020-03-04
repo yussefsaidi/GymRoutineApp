@@ -22,12 +22,12 @@ public interface ExerciseDao {
     Completable insertExercises(Exercise... exercises);
 
     @Query("SELECT * FROM exercises")
-    Single<List<Exercise>> getAllExercises();
+    Flowable<List<Exercise>> getAllExercises();
 
     @Delete
-    int delete(Exercise... exercises);
+    Completable delete(Exercise... exercises);
 
     @Update
-    int update(Exercise... exercises);
+    Completable update(Exercise... exercises);
 
 }

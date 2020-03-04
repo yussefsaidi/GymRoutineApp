@@ -12,12 +12,20 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.yussefsaidi.gymroutine.R;
 import com.yussefsaidi.gymroutine.persistence.ExerciseRepository;
 import com.yussefsaidi.gymroutine.persistence.models.Exercise;
+
+import javax.inject.Inject;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DisposableCompletableObserver;
+import io.reactivex.schedulers.Schedulers;
 
 public class ExerciseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -28,8 +36,8 @@ public class ExerciseViewHolder extends RecyclerView.ViewHolder implements View.
 
     TextView mViewName, mViewSets, mViewReps;
     EditText mEditName, mEditSets, mEditReps;
+    ExerciseRepository exerciseRepository;
 
-    ExerciseRepository mExerciseRepository;
     Exercise mExercise;
     private LinearLayout mSubItem;
     private Button mEditButton;
@@ -40,9 +48,11 @@ public class ExerciseViewHolder extends RecyclerView.ViewHolder implements View.
     private int mMode;
     Activity activity;
 
+    @Inject
+    public ExerciseViewHolder(@NonNull View itemView, ExerciseRepository exerciseRepository) {
 
-    public ExerciseViewHolder(@NonNull View itemView) {
         super(itemView);
+        this.exerciseRepository = exerciseRepository;
 
         // For editing
 
@@ -61,12 +71,10 @@ public class ExerciseViewHolder extends RecyclerView.ViewHolder implements View.
         exerciseItem.setOnClickListener(this);
         mEditButton.setOnClickListener(this);
         mCheckContainer.setOnClickListener(this);
-
     }
 
     @Override
     public void onClick(View view) {
-
         activity = getActivity(view);
         if (view.getId() == exerciseItem.getId() && mMode != EDIT_MODE_ENABLED) {
             if (mSubItem.getVisibility() == View.VISIBLE) {
@@ -80,11 +88,10 @@ public class ExerciseViewHolder extends RecyclerView.ViewHolder implements View.
         }
         // Check pressed in edit mode
         if (view.getId() == mCheckContainer.getId()) {
+            saveChanges();
             disableEditMode(activity);
-            saveChanges(activity);
         }
         // When edit mode is enabled, clicking anywhere results in disabling edit mode
-
     }
 
 
@@ -146,12 +153,18 @@ public class ExerciseViewHolder extends RecyclerView.ViewHolder implements View.
         }
     }
 
-    private void saveChanges(Activity activity) {
-        mExerciseRepository = new ExerciseRepository(activity);
+    private void saveChanges() {
         mExercise.setName(mEditName.getText().toString());
         mExercise.setSets(mEditSets.getText().toString());
         mExercise.setRepetitions(mEditReps.getText().toString());
-        mExerciseRepository.updateExerciseTask(mExercise);
+        updateExercises(mExercise);
         Log.d(TAG, "saveChanges: UPDATE ITEM");
+    }
+
+    private void updateExercises(Exercise mExercise){
+        exerciseRepository.updateExercises(mExercise)
+                .subscribeOn(Schedulers.io())
+                .subscribe();
+
     }
 }

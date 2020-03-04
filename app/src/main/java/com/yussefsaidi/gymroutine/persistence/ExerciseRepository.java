@@ -25,12 +25,20 @@ public class ExerciseRepository {
     }
 
 
-   public Single<List<Exercise>> getAllExercises(){
+   public Flowable<List<Exercise>> getAllExercises(){
         return exerciseDao.getAllExercises();
     }
 
     public Completable insertExercises(Exercise... exercises){
         return exerciseDao.insertExercises(exercises);
+    }
+
+    public Completable deleteExercises(Exercise... exercises){
+        return exerciseDao.delete(exercises);
+    }
+
+    public Completable updateExercises(Exercise... exercises){
+        return exerciseDao.update(exercises);
     }
 
 }

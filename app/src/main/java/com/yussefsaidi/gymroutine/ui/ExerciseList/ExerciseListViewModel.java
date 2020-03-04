@@ -7,9 +7,12 @@ import androidx.lifecycle.ViewModel;
 import com.yussefsaidi.gymroutine.persistence.ExerciseRepository;
 import com.yussefsaidi.gymroutine.persistence.models.Exercise;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+
 import javax.inject.Inject;
+
+import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 
@@ -27,21 +30,21 @@ public class ExerciseListViewModel extends ViewModel {
     public ExerciseListViewModel(){
 
         Log.d(TAG, "ExerciseListViewModel: viewmodel is working");
+
         exerciseListLiveData = new MutableLiveData<>();
     }
 
 
-    public LiveData<List<Exercise>> getAllExercises(){
-        exerciseRepository.getAllExercises()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<List<Exercise>>() {
-                    @Override
+    public Flowable<List<Exercise>> getAllExercises(){
+        return exerciseRepository.getAllExercises();
+
+                        //new DisposableSingleObserver<List<Exercise>>() {
+                    /*@Override
                     public void onSuccess(List<Exercise> exercises) {
                         try{
                             Log.d(TAG, "onSuccess: Exercises Retrieved from Database");
                             Log.d(TAG, "onSuccess: " + exercises.toString());
-                            onExercisesFetched(exercises);
+                            exerciseListLiveData.setValue(exercises);
                         } catch(Throwable ex){
                             dispose();
                             onError(ex);
@@ -52,14 +55,16 @@ public class ExerciseListViewModel extends ViewModel {
                     public void onError(Throwable e) {
                         e.printStackTrace();
                     }
-                });
+                });*/
+    }
 
+    public LiveData<List<Exercise>> returnExercises(){
         return exerciseListLiveData;
     }
 
-    private void onExercisesFetched(List<Exercise> allExercises){
+    /*private void onExercisesFetched(List<Exercise> allExercises){
         exerciseListLiveData.setValue(allExercises);
-    }
+    }*/
 
     private void onError(Throwable throwable){
         Log.d(TAG, "onError: " + throwable.getMessage());
@@ -67,8 +72,6 @@ public class ExerciseListViewModel extends ViewModel {
 
     public void insertExercises(Exercise... exercises){
 
-        exerciseRepository.insertExercises(exercises)
-                .subscribeOn(Schedulers.io())
-                .subscribe();
+        exerciseRepository.insertExercises(exercises);
     }
 }
