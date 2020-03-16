@@ -14,7 +14,7 @@ Our project follows: Activity -> ViewModel -> Repository -> Remote Data Source -
 LiveData is retrieved from the Remote Data Source into our repository, then it trickles down all the way to our ViewModel. The activities do not hold data.
 
 ## External Dependencies
-- [Dagger](https://dagger.dev/): Framework for compile-time dependency injection.
+- [Dagger2](https://dagger.dev/): Framework for compile-time dependency injection.
 - [Room](https://developer.android.com/training/data-storage/room): Used to setup a local data storage.
 - [RxJava](https://github.com/ReactiveX/RxJava): Asynchronous calls to interact with data storage.
 - [LiveData](https://developer.android.com/topic/libraries/architecture/livedata)
