@@ -3,7 +3,6 @@ App to keep track of your gym routine. Room for local data storage.
 
 ## Screenshots
 <p>
-  <img src="" width="270" height="450"/>
 </p>
 
 ## Installation
