@@ -125,6 +125,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="20"
             android:text="EDIT"
+            android:src="@drawable/ic_check_black_24dp"
             android:lines="1"
             android:onClick="onClickEdit"
             android:visibility="gone"/>
