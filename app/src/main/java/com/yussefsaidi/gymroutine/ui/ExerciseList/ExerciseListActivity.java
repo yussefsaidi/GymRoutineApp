@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.bumptech.glide.RequestManager;
 import com.yussefsaidi.gymroutine.R;
 import com.yussefsaidi.gymroutine.persistence.models.Exercise;
+import com.yussefsaidi.gymroutine.util.VerticalSpacingItemDecorator;
 import com.yussefsaidi.gymroutine.viewmodels.ViewModelProviderFactory;
 import java.util.List;
 import javax.inject.Inject;
@@ -84,7 +85,9 @@ public class ExerciseListActivity extends DaggerAppCompatActivity {
 
     public void initRecyclerView(){
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        VerticalSpacingItemDecorator verticalSpacingItemDecorator = new VerticalSpacingItemDecorator(3);
         mRecyclerView.setLayoutManager(linearLayoutManager);
+        mRecyclerView.addItemDecoration(verticalSpacingItemDecorator);
         mRecyclerView.setAdapter(adapter);
     }
 
