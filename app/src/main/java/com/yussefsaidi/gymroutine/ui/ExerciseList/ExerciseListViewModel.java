@@ -32,9 +32,14 @@ public class ExerciseListViewModel extends ViewModel {
         return exerciseRepository.getAllExercises();
     }
 
-    public void insertExercises(Exercise... exercises){
-
-        exerciseRepository.insertExercises(exercises);
+    public void insertExercises(){
+        Exercise exercise = new Exercise();
+        exercise.setName("PlaceHolder");
+        exercise.setRepetitions("5");
+        exercise.setSets("5");
+        exerciseRepository.insertExercises(exercise)
+                .subscribeOn(Schedulers.io())
+                .subscribe();
     }
 
     public void deleteExercise(Exercise exercise){

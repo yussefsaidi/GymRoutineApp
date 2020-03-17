@@ -32,7 +32,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subscribers.DisposableSubscriber;
 
-public class ExerciseListActivity extends DaggerAppCompatActivity {
+public class ExerciseListActivity extends DaggerAppCompatActivity implements View.OnClickListener {
 
     private static final int EDIT_MODE_DISABLED = 0;
     private static final int EDIT_MODE_ENABLED = 1;
@@ -63,6 +63,8 @@ public class ExerciseListActivity extends DaggerAppCompatActivity {
         initRecyclerView();
         viewModel = new ViewModelProvider(this, providerFactory).get(ExerciseListViewModel.class);
         subscribeObservers();
+        findViewById(R.id.fab).setOnClickListener(this);
+
     }
 
     public void subscribeObservers() {
@@ -110,13 +112,13 @@ public class ExerciseListActivity extends DaggerAppCompatActivity {
         }
     };
 
-    public void addExercises(){
-        Exercise exercise = new Exercise("TEST TEST", "5", "5");
-        viewModel.insertExercises(exercise);
-    }
-
     private void deleteExercise(Exercise exercise){
         viewModel.deleteExercise(exercise);
     }
 
+    //On Click of the FAB
+    @Override
+    public void onClick(View view) {
+        viewModel.insertExercises();
+    }
 }
