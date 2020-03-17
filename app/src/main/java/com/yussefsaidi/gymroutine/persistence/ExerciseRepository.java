@@ -1,17 +1,12 @@
 package com.yussefsaidi.gymroutine.persistence;
 
-import androidx.lifecycle.LiveData;
-
 import com.yussefsaidi.gymroutine.persistence.models.Exercise;
-
 import java.util.List;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
-import io.reactivex.Single;
+
 
 
 @Singleton

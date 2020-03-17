@@ -1,8 +1,6 @@
 package com.yussefsaidi.gymroutine.ui.ExerciseList;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,23 +8,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
 import com.bumptech.glide.RequestManager;
 import com.yussefsaidi.gymroutine.R;
 import com.yussefsaidi.gymroutine.persistence.models.Exercise;
 import com.yussefsaidi.gymroutine.util.VerticalSpacingItemDecorator;
 import com.yussefsaidi.gymroutine.viewmodels.ViewModelProviderFactory;
-
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
-import javax.xml.validation.SchemaFactoryLoader;
-
 import dagger.android.support.DaggerAppCompatActivity;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;

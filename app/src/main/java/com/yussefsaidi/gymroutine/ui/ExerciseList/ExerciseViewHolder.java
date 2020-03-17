@@ -11,20 +11,12 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.yussefsaidi.gymroutine.R;
 import com.yussefsaidi.gymroutine.persistence.ExerciseRepository;
 import com.yussefsaidi.gymroutine.persistence.models.Exercise;
-
 import javax.inject.Inject;
-
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.observers.DisposableCompletableObserver;
 import io.reactivex.schedulers.Schedulers;
 
 public class ExerciseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
