@@ -1,8 +1,10 @@
 package com.yussefsaidi.gymroutine.ui.ExerciseList;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
@@ -19,6 +21,8 @@ import com.yussefsaidi.gymroutine.R;
 import com.yussefsaidi.gymroutine.persistence.models.Exercise;
 import com.yussefsaidi.gymroutine.util.VerticalSpacingItemDecorator;
 import com.yussefsaidi.gymroutine.viewmodels.ViewModelProviderFactory;
+
+import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import javax.xml.validation.SchemaFactoryLoader;
@@ -47,7 +51,7 @@ public class ExerciseListActivity extends DaggerAppCompatActivity {
 
 
     // vars
-    LiveData<List<Exercise>> exerciseList;
+    List<Exercise> exerciseList = new ArrayList<>();
     private ExerciseListViewModel viewModel;
     RecyclerView mRecyclerView;
 
@@ -68,6 +72,8 @@ public class ExerciseListActivity extends DaggerAppCompatActivity {
                 .subscribe(new DisposableSubscriber<List<Exercise>>() {
                     @Override
                     public void onNext(List<Exercise> exercises) {
+                        exerciseList.clear();
+                        exerciseList.addAll(exercises);
                         adapter.setExercises(exercises);
                     }
 
@@ -88,12 +94,29 @@ public class ExerciseListActivity extends DaggerAppCompatActivity {
         VerticalSpacingItemDecorator verticalSpacingItemDecorator = new VerticalSpacingItemDecorator(3);
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.addItemDecoration(verticalSpacingItemDecorator);
+        new ItemTouchHelper(itemTouchHelper).attachToRecyclerView(mRecyclerView);
         mRecyclerView.setAdapter(adapter);
     }
+
+    private ItemTouchHelper.SimpleCallback itemTouchHelper = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            deleteExercise(exerciseList.get(viewHolder.getAdapterPosition()));
+        }
+    };
 
     public void addExercises(){
         Exercise exercise = new Exercise("TEST TEST", "5", "5");
         viewModel.insertExercises(exercise);
+    }
+
+    private void deleteExercise(Exercise exercise){
+        viewModel.deleteExercise(exercise);
     }
 
 }
