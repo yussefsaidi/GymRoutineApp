@@ -37,7 +37,7 @@ public class ExerciseViewHolder extends RecyclerView.ViewHolder implements View.
 
 
     View exerciseItem;
-    private int mMode;
+    private int mMode = EDIT_MODE_DISABLED;
     Activity activity;
 
     @Inject
@@ -115,8 +115,9 @@ public class ExerciseViewHolder extends RecyclerView.ViewHolder implements View.
         mViewSets.setVisibility(View.VISIBLE);
         mViewReps.setVisibility(View.VISIBLE);
         mEditButton.setVisibility(View.VISIBLE);
+        mSubItem.setVisibility(View.GONE);
 
-        hideKeyboard(activity);
+        //hideKeyboard(activity);
     }
 
     public static void hideKeyboard(Activity activity) {

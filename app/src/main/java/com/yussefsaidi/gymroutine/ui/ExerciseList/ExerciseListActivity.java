@@ -92,7 +92,11 @@ public class ExerciseListActivity extends DaggerAppCompatActivity implements Vie
     private ItemTouchHelper.SimpleCallback itemTouchHelper = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-            return false;
+            int fromPosition = viewHolder.getAdapterPosition();
+            int toPosition = viewHolder.getAdapterPosition();
+
+            adapter.notifyItemMoved(fromPosition, toPosition);
+            return true;
         }
 
         @Override
