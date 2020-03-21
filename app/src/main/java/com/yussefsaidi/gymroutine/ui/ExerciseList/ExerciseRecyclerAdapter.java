@@ -1,24 +1,14 @@
 package com.yussefsaidi.gymroutine.ui.ExerciseList;
 
-import android.app.Activity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.yussefsaidi.gymroutine.R;
 import com.yussefsaidi.gymroutine.persistence.ExerciseRepository;
 import com.yussefsaidi.gymroutine.persistence.models.Exercise;
-import com.yussefsaidi.gymroutine.viewmodels.ViewModelProviderFactory;
 
 import java.util.ArrayList;
 import java.util.List;
