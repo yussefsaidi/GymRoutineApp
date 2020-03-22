@@ -48,4 +48,10 @@ public class ExerciseListViewModel extends ViewModel {
                 .subscribe();
     }
 
+    public void updateExercises(Exercise... exercises){
+        exerciseRepository.updateExercises(exercises)
+                .subscribeOn(Schedulers.io())
+                .subscribe();
+    }
+
 }
