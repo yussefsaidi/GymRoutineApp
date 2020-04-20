@@ -1,4 +1,4 @@
-package com.yussefsaidi.gymroutine.ui.ExerciseList;
+package com.yussefsaidi.gymroutine.adapters;
 
 import android.app.Activity;
 import android.content.Context;

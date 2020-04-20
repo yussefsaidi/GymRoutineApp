@@ -6,14 +6,15 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.ClipData;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import com.bumptech.glide.RequestManager;
 import com.yussefsaidi.gymroutine.R;
+import com.yussefsaidi.gymroutine.adapters.ExerciseRecyclerAdapter;
 import com.yussefsaidi.gymroutine.persistence.models.Exercise;
 import com.yussefsaidi.gymroutine.util.VerticalSpacingItemDecorator;
+import com.yussefsaidi.gymroutine.viewmodels.ExerciseListViewModel;
 import com.yussefsaidi.gymroutine.viewmodels.ViewModelProviderFactory;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,8 +24,6 @@ import dagger.android.support.DaggerAppCompatActivity;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subscribers.DisposableSubscriber;
-
-import static androidx.recyclerview.widget.ItemTouchHelper.UP;
 
 public class ExerciseListActivity extends DaggerAppCompatActivity implements View.OnClickListener {
 
@@ -57,8 +56,8 @@ public class ExerciseListActivity extends DaggerAppCompatActivity implements Vie
         initRecyclerView();
         viewModel = new ViewModelProvider(this, providerFactory).get(ExerciseListViewModel.class);
         subscribeObservers();
-        findViewById(R.id.fab).setOnClickListener(this);
-
+        findViewById(R.id.fab_add_exercise).setOnClickListener(this);
+        findViewById(R.id.fab_add_category).setOnClickListener(this);
     }
 
     ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN, ItemTouchHelper.RIGHT) {
@@ -136,6 +135,11 @@ public class ExerciseListActivity extends DaggerAppCompatActivity implements Vie
     //On Click of the FAB
     @Override
     public void onClick(View view) {
-        viewModel.insertExercises();
+        if(view.getId() == R.id.fab_add_exercise){
+            viewModel.insertNewExercise();
+        }
+        else if(view.getId() == R.id.fab_add_category){
+            viewModel.insertNewCategory();
+        }
     }
 }

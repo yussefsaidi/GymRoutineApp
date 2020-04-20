@@ -1,4 +1,4 @@
-package com.yussefsaidi.gymroutine.ui.ExerciseList;
+package com.yussefsaidi.gymroutine.viewmodels;
 
 import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
@@ -32,11 +32,23 @@ public class ExerciseListViewModel extends ViewModel {
         return exerciseRepository.getAllExercises();
     }
 
-    public void insertExercises(){
+    public void insertNewExercise(){
         Exercise exercise = new Exercise();
         exercise.setName("PlaceHolder");
         exercise.setRepetitions("5");
         exercise.setSets("5");
+        exercise.setCategory(false);
+        exerciseRepository.insertExercises(exercise)
+                .subscribeOn(Schedulers.io())
+                .subscribe();
+    }
+
+    public void insertNewCategory(){
+        Exercise exercise = new Exercise();
+        exercise.setName("CATEGORY");
+        exercise.setRepetitions("0");
+        exercise.setSets("20");
+        exercise.setCategory(true);
         exerciseRepository.insertExercises(exercise)
                 .subscribeOn(Schedulers.io())
                 .subscribe();

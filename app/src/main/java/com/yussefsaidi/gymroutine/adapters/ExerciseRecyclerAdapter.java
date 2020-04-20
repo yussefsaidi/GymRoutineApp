@@ -1,4 +1,4 @@
-package com.yussefsaidi.gymroutine.ui.ExerciseList;
+package com.yussefsaidi.gymroutine.adapters;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.yussefsaidi.gymroutine.R;
+import com.yussefsaidi.gymroutine.adapters.ExerciseViewHolder;
 import com.yussefsaidi.gymroutine.persistence.ExerciseRepository;
 import com.yussefsaidi.gymroutine.persistence.models.Exercise;
 
@@ -16,6 +17,10 @@ import java.util.List;
 import javax.inject.Inject;
 
 public class ExerciseRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+    // ViewHolders
+    private static final int CATEGORY_TYPE = 0;
+    private static final int EXERCISE_TYPE = 1;
 
     // vars
     private List<Exercise> mExercises = new ArrayList<>();
@@ -27,29 +32,52 @@ public class ExerciseRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
         this.exerciseRepository = exerciseRepository;
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        if(mExercises.get(position).isCategory() == true){
+            return CATEGORY_TYPE;
+        }
+        else{
+            return EXERCISE_TYPE;
+        }
+    }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // For editing
         Log.d(TAG, "onCreateViewHolder: repository instance null? " + exerciseRepository.toString());
 
-        if()
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_exercise_list_item, parent, false);
-        final ExerciseViewHolder holder = new ExerciseViewHolder(view, exerciseRepository);
-        return holder;
+        if(viewType == CATEGORY_TYPE){
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_exercise_category, parent, false);
+            return new CategoryViewHolder(view, exerciseRepository);
+        }
+        else {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_exercise_list_item, parent, false);
+            return new ExerciseViewHolder(view, exerciseRepository);
+        }
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((ExerciseViewHolder)holder).mViewName.setText(mExercises.get(position).getName());
-        ((ExerciseViewHolder)holder).mEditName.setText(mExercises.get(position).getName());
-        ((ExerciseViewHolder)holder).mViewSets.setText(mExercises.get(position).getSets());
-        ((ExerciseViewHolder)holder).mEditSets.setText(mExercises.get(position).getSets());
-        ((ExerciseViewHolder)holder).mViewReps.setText(mExercises.get(position).getRepetitions());
-        ((ExerciseViewHolder)holder).mEditReps.setText(mExercises.get(position).getRepetitions());
 
-        // Send exercise item reference to viewholder to update it
-        ((ExerciseViewHolder)holder).mExercise = mExercises.get(position);
+        int viewType = getItemViewType(position);
+
+        if(viewType == CATEGORY_TYPE){
+            ((CategoryViewHolder)holder).categoryName.setText(mExercises.get(position).getName());
+            ((CategoryViewHolder)holder).exercise = mExercises.get(position);
+        }
+
+        else if(viewType == EXERCISE_TYPE){
+            ((ExerciseViewHolder)holder).mViewName.setText(mExercises.get(position).getName());
+            ((ExerciseViewHolder)holder).mEditName.setText(mExercises.get(position).getName());
+            ((ExerciseViewHolder)holder).mViewSets.setText(mExercises.get(position).getSets());
+            ((ExerciseViewHolder)holder).mEditSets.setText(mExercises.get(position).getSets());
+            ((ExerciseViewHolder)holder).mViewReps.setText(mExercises.get(position).getRepetitions());
+            ((ExerciseViewHolder)holder).mEditReps.setText(mExercises.get(position).getRepetitions());
+            // Send exercise item reference to viewholder to update it
+            ((ExerciseViewHolder)holder).mExercise = mExercises.get(position);
+        }
     }
 
     @Override
