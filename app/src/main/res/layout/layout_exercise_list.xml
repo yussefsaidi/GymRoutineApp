@@ -40,7 +40,8 @@
         app:fab_addButtonPlusIconColor="@android:color/black"
         app:fab_addButtonSize="normal"
         app:fab_labelsPosition="left"
-        app:fab_labelStyle="@style/menu_labels_style">
+        app:fab_labelStyle="@style/menu_labels_style"
+        app:layout_behavior=".util.FABFloatOnScroll">
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_add_exercise"
@@ -50,7 +51,8 @@
             app:fab_colorNormal="@color/white"
             app:fab_colorPressed="@color/white_pressed"
             android:src="@drawable/ic_add_black_24dp"
-            app:fab_size="normal" />
+            app:fab_size="normal"
+            />
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_add_category"
