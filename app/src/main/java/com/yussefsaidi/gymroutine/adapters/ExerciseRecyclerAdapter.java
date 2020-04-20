@@ -32,6 +32,8 @@ public class ExerciseRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // For editing
         Log.d(TAG, "onCreateViewHolder: repository instance null? " + exerciseRepository.toString());
+
+        if()
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_exercise_list_item, parent, false);
         final ExerciseViewHolder holder = new ExerciseViewHolder(view, exerciseRepository);
         return holder;

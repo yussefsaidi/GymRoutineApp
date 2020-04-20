@@ -26,14 +26,42 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
     </androidx.recyclerview.widget.RecyclerView>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/fab"
-        android:layout_marginTop="26dp"
-        app:layout_anchor="@id/exercises_toolbar"
-        app:layout_anchorGravity="center|top"
-        android:src="@drawable/ic_add_black_24dp"/>
+        android:id="@+id/fab_menu"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_anchor="@id/recyclerView"
+        app:layout_anchorGravity="bottom|right"
+        app:fab_addButtonColorNormal="@color/white"
+        app:fab_addButtonColorPressed="@color/white_pressed"
+        app:fab_addButtonPlusIconColor="@android:color/black"
+        app:fab_addButtonSize="normal"
+        app:fab_labelsPosition="left"
+        app:fab_labelStyle="@style/menu_labels_style">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_add_exercise"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_title="Add Exercise"
+            app:fab_colorNormal="@color/white"
+            app:fab_colorPressed="@color/white_pressed"
+            android:src="@drawable/ic_add_black_24dp"
+            app:fab_size="normal" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_add_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/white"
+            app:fab_size="normal"
+            app:fab_title="Add Category"
+            app:fab_colorPressed="@color/mediumRed"
+            android:src="@drawable/ic_playlist_add_black_24dp"/>
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
 
 

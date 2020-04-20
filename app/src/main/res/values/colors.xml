@@ -5,4 +5,10 @@
     <color name="colorAccent">#D81B60</color>
     <color name="lightGrey">#a1a1a1</color>
     <color name="mediumRed">#b81616</color>
+    <color name="dirtySkyBlue">#51bec4</color>
+    <color name="lightBeige">#F5F5DC</color>
+    <color name="dustyRed">#ba434b</color>
+    <color name="white">#fafafa</color>
+    <color name="white_pressed">#f1f1f1</color>
+    <color name="black_semi_transparent">#B2000000</color>
 </resources>
