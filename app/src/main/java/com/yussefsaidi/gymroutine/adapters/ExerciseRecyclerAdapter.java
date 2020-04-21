@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.yussefsaidi.gymroutine.R;
-import com.yussefsaidi.gymroutine.adapters.ExerciseViewHolder;
 import com.yussefsaidi.gymroutine.persistence.ExerciseRepository;
 import com.yussefsaidi.gymroutine.persistence.models.Exercise;
 
@@ -64,17 +63,20 @@ public class ExerciseRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
         int viewType = getItemViewType(position);
 
         if(viewType == CATEGORY_TYPE){
-            ((CategoryViewHolder)holder).categoryName.setText(mExercises.get(position).getName());
-            ((CategoryViewHolder)holder).exercise = mExercises.get(position);
+            ((CategoryViewHolder)holder).viewCategoryName.setText(mExercises.get(position).getName());
+            ((CategoryViewHolder)holder).editCategoryName.setText(mExercises.get(position).getName());
+            ((CategoryViewHolder)holder).category = mExercises.get(position);
+            ((CategoryViewHolder)holder).category = mExercises.get(position);
+
         }
 
         else if(viewType == EXERCISE_TYPE){
-            ((ExerciseViewHolder)holder).mViewName.setText(mExercises.get(position).getName());
-            ((ExerciseViewHolder)holder).mEditName.setText(mExercises.get(position).getName());
-            ((ExerciseViewHolder)holder).mViewSets.setText(mExercises.get(position).getSets());
-            ((ExerciseViewHolder)holder).mEditSets.setText(mExercises.get(position).getSets());
-            ((ExerciseViewHolder)holder).mViewReps.setText(mExercises.get(position).getRepetitions());
-            ((ExerciseViewHolder)holder).mEditReps.setText(mExercises.get(position).getRepetitions());
+            ((ExerciseViewHolder)holder).viewExerciseName.setText(mExercises.get(position).getName());
+            ((ExerciseViewHolder)holder).editExerciseName.setText(mExercises.get(position).getName());
+            ((ExerciseViewHolder)holder).viewSets.setText(mExercises.get(position).getSets());
+            ((ExerciseViewHolder)holder).editSets.setText(mExercises.get(position).getSets());
+            ((ExerciseViewHolder)holder).viewReps.setText(mExercises.get(position).getRepetitions());
+            ((ExerciseViewHolder)holder).editReps.setText(mExercises.get(position).getRepetitions());
             // Send exercise item reference to viewholder to update it
             ((ExerciseViewHolder)holder).mExercise = mExercises.get(position);
         }

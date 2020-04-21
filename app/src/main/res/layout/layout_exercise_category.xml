@@ -4,13 +4,67 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:id="@+id/exercise_category"
-    android:background="@color/dirtySkyBlue">
+    android:id="@+id/category_item"
+    android:background="@color/dirtySkyBlue"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="100"
+        android:id="@+id/category_info"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/exercise_category_name"
+        android:id="@+id/category_text_name"
         android:text="Category"
-        android:layout_centerHorizontal="true"/>
+        android:textSize="18sp"
+        android:textColor="#000"
+        android:lines="1"
+        android:visibility="visible"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/category_edit_name"
+        android:text="Category"
+        android:textSize="18sp"
+        android:textColor="#000"
+        android:lines="1"
+        android:visibility="gone"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/category_subinfo"
+        android:layout_below="@id/category_info"
+        android:weightSum="100"
+        android:gravity="center_vertical"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/edit_category_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="20"
+            android:text="EDIT"
+            android:lines="1" />
+        <ImageButton
+            android:id="@+id/category_check_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="20"
+            android:text="EDIT"
+            android:src="@drawable/ic_check_black_24dp"
+            android:lines="1"
+            android:onClick="onClickEdit"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
 </RelativeLayout>

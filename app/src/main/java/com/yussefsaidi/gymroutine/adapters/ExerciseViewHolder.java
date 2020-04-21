@@ -26,14 +26,14 @@ public class ExerciseViewHolder extends RecyclerView.ViewHolder implements View.
     private static final int EDIT_MODE_ENABLED = 1;
 
 
-    TextView mViewName, mViewSets, mViewReps;
-    EditText mEditName, mEditSets, mEditReps;
+    TextView viewExerciseName, viewSets, viewReps;
+    EditText editExerciseName, editSets, editReps;
     ExerciseRepository exerciseRepository;
 
     Exercise mExercise;
-    private LinearLayout mSubItem;
-    private Button mEditButton;
-    private ImageButton mCheckContainer;
+    private LinearLayout exerciseSubInfo;
+    private Button editButton;
+    private ImageButton checkContainer;
 
 
     View exerciseItem;
@@ -48,38 +48,38 @@ public class ExerciseViewHolder extends RecyclerView.ViewHolder implements View.
 
         // For editing
 
-        mViewName = itemView.findViewById(R.id.exercise_text_name);
-        mEditName = itemView.findViewById(R.id.exercise_edit_name); // GONE by default
-        mViewSets = itemView.findViewById(R.id.exercise_sets);
-        mEditSets = itemView.findViewById(R.id.exercise_edit_sets); // GONE by default
-        mViewReps = itemView.findViewById(R.id.exercise_reps);
-        mEditReps = itemView.findViewById(R.id.exercise_edit_reps); // GONE by default
+        viewExerciseName = itemView.findViewById(R.id.exercise_text_name);
+        editExerciseName = itemView.findViewById(R.id.exercise_edit_name); // GONE by default
+        viewSets = itemView.findViewById(R.id.exercise_sets);
+        editSets = itemView.findViewById(R.id.exercise_edit_sets); // GONE by default
+        viewReps = itemView.findViewById(R.id.exercise_reps);
+        editReps = itemView.findViewById(R.id.exercise_edit_reps); // GONE by default
 
 
-        mSubItem = itemView.findViewById(R.id.exercise_subinfo);
-        mEditButton = itemView.findViewById(R.id.edit_name_button);
-        mCheckContainer = itemView.findViewById(R.id.check_container);
+        exerciseSubInfo = itemView.findViewById(R.id.exercise_subinfo);
+        editButton = itemView.findViewById(R.id.edit_name_button);
+        checkContainer = itemView.findViewById(R.id.check_container);
         exerciseItem = itemView.findViewById(R.id.exercise_item);
         exerciseItem.setOnClickListener(this);
-        mEditButton.setOnClickListener(this);
-        mCheckContainer.setOnClickListener(this);
+        editButton.setOnClickListener(this);
+        checkContainer.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         activity = getActivity(view);
         if (view.getId() == exerciseItem.getId() && mMode != EDIT_MODE_ENABLED) {
-            if (mSubItem.getVisibility() == View.VISIBLE) {
-                mSubItem.setVisibility(View.GONE);
+            if (exerciseSubInfo.getVisibility() == View.VISIBLE) {
+                exerciseSubInfo.setVisibility(View.GONE);
             } else
-                mSubItem.setVisibility(View.VISIBLE);
+                exerciseSubInfo.setVisibility(View.VISIBLE);
         }
 
-        if (view.getId() == mEditButton.getId()) {
+        if (view.getId() == editButton.getId()) {
             enableEditMode(activity);
         }
         // Check pressed in edit mode
-        if (view.getId() == mCheckContainer.getId()) {
+        if (view.getId() == checkContainer.getId()) {
             saveChanges();
             disableEditMode(activity);
         }
@@ -90,32 +90,32 @@ public class ExerciseViewHolder extends RecyclerView.ViewHolder implements View.
     private void enableEditMode(Activity activity) {
         //Make all 3 edit texts visible
         mMode = EDIT_MODE_ENABLED;
-        mViewName.setVisibility(View.GONE);
-        mViewReps.setVisibility(View.GONE);
-        mViewSets.setVisibility(View.GONE);
-        mEditName.setVisibility(View.VISIBLE);
-        mEditSets.setVisibility(View.VISIBLE);
-        mEditReps.setVisibility(View.VISIBLE);
+        viewExerciseName.setVisibility(View.GONE);
+        viewReps.setVisibility(View.GONE);
+        viewSets.setVisibility(View.GONE);
+        editExerciseName.setVisibility(View.VISIBLE);
+        editSets.setVisibility(View.VISIBLE);
+        editReps.setVisibility(View.VISIBLE);
 
 
-        mCheckContainer.setVisibility(View.VISIBLE);
-        mEditButton.setVisibility(View.GONE);
-        mEditName.requestFocus();
+        checkContainer.setVisibility(View.VISIBLE);
+        editButton.setVisibility(View.GONE);
+        editExerciseName.requestFocus();
     }
 
     private void disableEditMode(Activity activity) {
         mMode = EDIT_MODE_DISABLED;
 
-        mEditName.setVisibility(View.GONE);
-        mEditSets.setVisibility(View.GONE);
-        mEditReps.setVisibility(View.GONE);
-        mCheckContainer.setVisibility(View.GONE);
+        editExerciseName.setVisibility(View.GONE);
+        editSets.setVisibility(View.GONE);
+        editReps.setVisibility(View.GONE);
+        checkContainer.setVisibility(View.GONE);
 
-        mViewName.setVisibility(View.VISIBLE);
-        mViewSets.setVisibility(View.VISIBLE);
-        mViewReps.setVisibility(View.VISIBLE);
-        mEditButton.setVisibility(View.VISIBLE);
-        mSubItem.setVisibility(View.GONE);
+        viewExerciseName.setVisibility(View.VISIBLE);
+        viewSets.setVisibility(View.VISIBLE);
+        viewReps.setVisibility(View.VISIBLE);
+        editButton.setVisibility(View.VISIBLE);
+        exerciseSubInfo.setVisibility(View.GONE);
 
         //hideKeyboard(activity);
     }
@@ -140,16 +140,16 @@ public class ExerciseViewHolder extends RecyclerView.ViewHolder implements View.
 
     private void onBackPressed(Activity activity) {
         if (mMode == EDIT_MODE_ENABLED) {
-            onClick(mCheckContainer);
+            onClick(checkContainer);
         } else {
             activity.onBackPressed();
         }
     }
 
     private void saveChanges() {
-        mExercise.setName(mEditName.getText().toString());
-        mExercise.setSets(mEditSets.getText().toString());
-        mExercise.setRepetitions(mEditReps.getText().toString());
+        mExercise.setName(editExerciseName.getText().toString());
+        mExercise.setSets(editSets.getText().toString());
+        mExercise.setRepetitions(editReps.getText().toString());
         updateExercises(mExercise);
         Log.d(TAG, "saveChanges: UPDATE ITEM");
     }
