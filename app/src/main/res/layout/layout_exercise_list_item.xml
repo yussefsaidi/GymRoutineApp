@@ -127,7 +127,6 @@
             android:text="EDIT"
             android:src="@drawable/ic_check_black_24dp"
             android:lines="1"
-            android:onClick="onClickEdit"
             android:visibility="gone"/>
     </LinearLayout>
 </RelativeLayout>

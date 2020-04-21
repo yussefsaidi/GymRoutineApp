@@ -54,7 +54,7 @@ public class AppModule {
     @Singleton
     @Provides
     public ExerciseDatabase provideRoomDatabase(Application application){
-        return Room.databaseBuilder(application, ExerciseDatabase.class, DATABASE_NAME).build();
+        return Room.databaseBuilder(application, ExerciseDatabase.class, DATABASE_NAME).fallbackToDestructiveMigration().build();
     }
 
     @Singleton

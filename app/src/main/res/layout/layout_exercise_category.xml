@@ -6,6 +6,7 @@
     android:orientation="horizontal"
     android:id="@+id/category_item"
     android:background="@color/dirtySkyBlue"
+    android:clickable="false"
     >
 
     <LinearLayout

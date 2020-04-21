@@ -3,7 +3,7 @@ package com.yussefsaidi.gymroutine.di.ExerciseList;
 import androidx.lifecycle.ViewModel;
 
 import com.yussefsaidi.gymroutine.di.ViewModelKey;
-import com.yussefsaidi.gymroutine.ui.ExerciseList.ExerciseListViewModel;
+import com.yussefsaidi.gymroutine.viewmodels.ExerciseListViewModel;
 
 import dagger.Binds;
 import dagger.Module;

@@ -92,4 +92,9 @@ public class ExerciseRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
         mExercises = exercises;
         notifyDataSetChanged();
     }
+
+    @Override
+    public long getItemId(int position) {
+        return mExercises.get(position).getId();
+    }
 }
