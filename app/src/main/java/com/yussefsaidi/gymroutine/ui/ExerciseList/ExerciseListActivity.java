@@ -123,7 +123,6 @@ public class ExerciseListActivity extends DaggerAppCompatActivity implements Vie
         VerticalSpacingItemDecorator verticalSpacingItemDecorator = new VerticalSpacingItemDecorator(3);
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.addItemDecoration(verticalSpacingItemDecorator);
-        adapter.setHasStableIds(true);
         mRecyclerView.setAdapter(adapter);
         itemTouchHelper.attachToRecyclerView(mRecyclerView);
     }

@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,18 +26,15 @@ public class ExerciseViewHolder extends RecyclerView.ViewHolder implements View.
     private static final int EDIT_MODE_DISABLED = 0;
     private static final int EDIT_MODE_ENABLED = 1;
 
-
-    TextView viewExerciseName, viewSets, viewReps;
-    EditText editExerciseName, editSets, editReps;
+    TextView viewExerciseName, viewSets, viewReps, viewCategoryName;
+    private LinearLayout categorySubInfo;
+    EditText editExerciseName, editSets, editReps, editCategoryName;
     ExerciseRepository exerciseRepository;
-
     Exercise mExercise;
     private LinearLayout exerciseSubInfo;
-    private Button editButton;
-    private ImageButton checkContainer;
-
-
-    View exerciseItem;
+    private Button editExerciseButton, editCategoryButton;
+    private ImageButton checkExerciseContainer, checkCategoryContainer;
+    View exerciseItem, categoryItem, item;
     private int mMode = EDIT_MODE_DISABLED;
     Activity activity;
 
@@ -46,40 +44,65 @@ public class ExerciseViewHolder extends RecyclerView.ViewHolder implements View.
         super(itemView);
         this.exerciseRepository = exerciseRepository;
 
-        // For editing
-
+        // For editing exercises
         viewExerciseName = itemView.findViewById(R.id.exercise_text_name);
         editExerciseName = itemView.findViewById(R.id.exercise_edit_name); // GONE by default
         viewSets = itemView.findViewById(R.id.exercise_sets);
         editSets = itemView.findViewById(R.id.exercise_edit_sets); // GONE by default
         viewReps = itemView.findViewById(R.id.exercise_reps);
         editReps = itemView.findViewById(R.id.exercise_edit_reps); // GONE by default
-
-
         exerciseSubInfo = itemView.findViewById(R.id.exercise_subinfo);
-        editButton = itemView.findViewById(R.id.edit_name_button);
-        checkContainer = itemView.findViewById(R.id.check_container);
+        editExerciseButton = itemView.findViewById(R.id.edit_name_button);
+        editCategoryButton = itemView.findViewById(R.id.edit_category_button);
+        checkExerciseContainer = itemView.findViewById(R.id.check_container);
+        checkCategoryContainer = itemView.findViewById(R.id.category_check_container);
+        item = itemView.findViewById(R.id.item);
         exerciseItem = itemView.findViewById(R.id.exercise_item);
-        exerciseItem.setOnClickListener(this);
-        editButton.setOnClickListener(this);
-        checkContainer.setOnClickListener(this);
+
+
+        // For creating or editing a category
+        viewCategoryName = itemView.findViewById(R.id.category_text_name);
+        editCategoryName = itemView.findViewById(R.id.category_edit_name);
+        categorySubInfo = itemView.findViewById(R.id.category_subinfo);
+
+        categoryItem = itemView.findViewById(R.id.category_item);
+
+        item.setOnClickListener(this);
+        editCategoryButton.setOnClickListener(this);
+        editExerciseButton.setOnClickListener(this);
+        checkExerciseContainer.setOnClickListener(this);
+        checkCategoryContainer.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         activity = getActivity(view);
-        if (view.getId() == exerciseItem.getId() && mMode != EDIT_MODE_ENABLED) {
-            if (exerciseSubInfo.getVisibility() == View.VISIBLE) {
-                exerciseSubInfo.setVisibility(View.GONE);
-            } else
-                exerciseSubInfo.setVisibility(View.VISIBLE);
+        if (view.getId() == item.getId() && mMode != EDIT_MODE_ENABLED) {
+
+            if (mExercise.isCategory() == false) {
+
+                if (exerciseSubInfo.getVisibility() == View.VISIBLE) {
+                    exerciseSubInfo.setVisibility(View.GONE);
+                } else {
+                    exerciseSubInfo.setVisibility(View.VISIBLE);
+                }
+            }
+            else if (mExercise.isCategory() == true) {
+
+                if (categorySubInfo.getVisibility() == View.VISIBLE) {
+                    categorySubInfo.setVisibility(View.GONE);
+                } else {
+                    categorySubInfo.setVisibility(View.VISIBLE);
+                }
+            }
         }
 
-        if (view.getId() == editButton.getId()) {
+        if (view.getId() == editExerciseButton.getId() || view.getId() == editCategoryButton.getId()) {
+            Log.d(TAG, "onClick: ");
             enableEditMode(activity);
         }
         // Check pressed in edit mode
-        if (view.getId() == checkContainer.getId()) {
+        if (view.getId() == checkExerciseContainer.getId() || view.getId() == checkCategoryContainer.getId()) {
             saveChanges();
             disableEditMode(activity);
         }
@@ -90,32 +113,56 @@ public class ExerciseViewHolder extends RecyclerView.ViewHolder implements View.
     private void enableEditMode(Activity activity) {
         //Make all 3 edit texts visible
         mMode = EDIT_MODE_ENABLED;
-        viewExerciseName.setVisibility(View.GONE);
-        viewReps.setVisibility(View.GONE);
-        viewSets.setVisibility(View.GONE);
-        editExerciseName.setVisibility(View.VISIBLE);
-        editSets.setVisibility(View.VISIBLE);
-        editReps.setVisibility(View.VISIBLE);
+        if(mExercise.isCategory() == false) {
+            viewExerciseName.setVisibility(View.GONE);
+            viewReps.setVisibility(View.GONE);
+            viewSets.setVisibility(View.GONE);
+            editExerciseName.setVisibility(View.VISIBLE);
+            editSets.setVisibility(View.VISIBLE);
+            editReps.setVisibility(View.VISIBLE);
+            checkExerciseContainer.setVisibility(View.VISIBLE);
+            editExerciseButton.setVisibility(View.GONE);
+            editExerciseName.requestFocus();
+        }
+        else {
+            viewCategoryName.setVisibility(View.GONE);
+            editCategoryName.setVisibility(View.VISIBLE);
+            checkCategoryContainer.setVisibility(View.VISIBLE);
+            editCategoryButton.setVisibility(View.GONE);
+            editCategoryName.requestFocus();
+
+        }
 
 
-        checkContainer.setVisibility(View.VISIBLE);
-        editButton.setVisibility(View.GONE);
-        editExerciseName.requestFocus();
     }
 
     private void disableEditMode(Activity activity) {
         mMode = EDIT_MODE_DISABLED;
 
-        editExerciseName.setVisibility(View.GONE);
-        editSets.setVisibility(View.GONE);
-        editReps.setVisibility(View.GONE);
-        checkContainer.setVisibility(View.GONE);
+        if(mExercise.isCategory() == false){
+            editExerciseName.setVisibility(View.GONE);
+            editSets.setVisibility(View.GONE);
+            editReps.setVisibility(View.GONE);
+            checkExerciseContainer.setVisibility(View.GONE);
 
-        viewExerciseName.setVisibility(View.VISIBLE);
-        viewSets.setVisibility(View.VISIBLE);
-        viewReps.setVisibility(View.VISIBLE);
-        editButton.setVisibility(View.VISIBLE);
-        exerciseSubInfo.setVisibility(View.GONE);
+            viewExerciseName.setVisibility(View.VISIBLE);
+            viewSets.setVisibility(View.VISIBLE);
+            viewReps.setVisibility(View.VISIBLE);
+            editExerciseButton.setVisibility(View.VISIBLE);
+            exerciseSubInfo.setVisibility(View.GONE);
+        }
+
+        else if (mExercise.isCategory() == true){
+            editCategoryName.setVisibility(View.GONE);
+            categorySubInfo.setVisibility(View.GONE);
+            checkCategoryContainer.setVisibility(View.GONE);
+
+            viewCategoryName.setVisibility(View.VISIBLE);
+            editCategoryButton.setVisibility(View.VISIBLE);
+
+        }
+
+
 
         //hideKeyboard(activity);
     }
@@ -140,18 +187,31 @@ public class ExerciseViewHolder extends RecyclerView.ViewHolder implements View.
 
     private void onBackPressed(Activity activity) {
         if (mMode == EDIT_MODE_ENABLED) {
-            onClick(checkContainer);
+            if(mExercise.isCategory() == true){
+                onClick(checkCategoryContainer);
+            }
+            if(mExercise.isCategory() == false){
+                onClick(checkExerciseContainer);
+            }
+
         } else {
             activity.onBackPressed();
         }
     }
 
     private void saveChanges() {
-        mExercise.setName(editExerciseName.getText().toString());
-        mExercise.setSets(editSets.getText().toString());
-        mExercise.setRepetitions(editReps.getText().toString());
-        updateExercises(mExercise);
-        Log.d(TAG, "saveChanges: UPDATE ITEM");
+        if(mExercise.isCategory() == false){
+            mExercise.setName(editExerciseName.getText().toString());
+            mExercise.setSets(editSets.getText().toString());
+            mExercise.setRepetitions(editReps.getText().toString());
+            updateExercises(mExercise);
+        }
+
+        else if (mExercise.isCategory() == true){
+            mExercise.setName(editCategoryName.getText().toString());
+            updateExercises(mExercise);
+        }
+
     }
 
     private void updateExercises(Exercise mExercise){
