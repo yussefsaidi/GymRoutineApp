@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#c91616</color>
-    <color name="colorPrimaryDark">#ab2929</color>
+    <color name="toolbar">#a1a1a1</color>
+    <color name="appbar">#a1a1a1</color>
     <color name="colorAccent">#D81B60</color>
     <color name="lightGrey">#a1a1a1</color>
     <color name="mediumRed">#b81616</color>
@@ -11,4 +11,26 @@
     <color name="white">#fafafa</color>
     <color name="white_pressed">#f1f1f1</color>
     <color name="black_semi_transparent">#B2000000</color>
+
+    
+    <color name="old_lavender">#7C7287</color>
+    <color name="opal">#9DC0BC</color>
+
+    <color name="mellow_apricot">#F7B267</color>
+    <color name="tangerine">#F79D65</color>
+    <color name="coral">#F4845F</color>
+    <color name="bittersweet">#F27059</color>
+    <color name="orange_red">#F25C54</color>
+
+
+    <color name="dark_sky_blue">#78C0E0</color>
+    <color name="carolina_blue">#449DD1</color>
+    <color name="navy_blue">#150578</color>
+    <color name="midnight_blue">#0E0E52</color>
+    <color name="denim_blue">#3943B7</color>
+
+
+
+
+
 </resources>
