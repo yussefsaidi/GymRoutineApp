@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">GymRoutine</string>
+    <string name="template_ppl">ppl</string>
+    <string name="template_upperlower">upperlower</string>
+    <string name="template_fullbody">fullbody</string>
+    <string name="template">template</string>
 </resources>

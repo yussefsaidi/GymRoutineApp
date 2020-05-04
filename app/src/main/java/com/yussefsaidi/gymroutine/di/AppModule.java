@@ -10,11 +10,8 @@ import com.bumptech.glide.request.RequestOptions;
 import com.yussefsaidi.gymroutine.R;
 import com.yussefsaidi.gymroutine.persistence.ExerciseDao;
 import com.yussefsaidi.gymroutine.persistence.ExerciseDatabase;
-import com.yussefsaidi.gymroutine.persistence.ExerciseRepository;
 import com.yussefsaidi.gymroutine.util.Constants;
-
 import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory;
@@ -50,7 +47,6 @@ public class AppModule {
     }
 
     public static final String DATABASE_NAME = "exercises";
-
     @Singleton
     @Provides
     public ExerciseDatabase provideRoomDatabase(Application application){

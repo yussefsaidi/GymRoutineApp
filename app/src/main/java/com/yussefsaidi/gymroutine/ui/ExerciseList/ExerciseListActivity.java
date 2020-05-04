@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -53,11 +54,30 @@ public class ExerciseListActivity extends DaggerAppCompatActivity implements Vie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_exercise_list);
         mRecyclerView = findViewById(R.id.recyclerView);
-        initRecyclerView();
         viewModel = new ViewModelProvider(this, providerFactory).get(ExerciseListViewModel.class);
+        initRecyclerView();
         subscribeObservers();
         findViewById(R.id.fab_add_exercise).setOnClickListener(this);
         findViewById(R.id.fab_add_category).setOnClickListener(this);
+        initTemplate();
+    }
+
+    private void initTemplate() {
+        Intent intent = getIntent();
+
+        if(intent.hasExtra(getString(R.string.template))){
+        String template = intent.getStringExtra(getString(R.string.template));
+        if(template.equals(getString(R.string.template_ppl))){
+            viewModel.createTemplatePpl();
+        }
+        else if(template == getString(R.string.template_upperlower)) {
+            viewModel.createTemplateUl();
+        }
+
+        else if(template == getString(R.string.template_fullbody)){
+            viewModel.createTemplateFullbody();
+        }
+        }
     }
 
     ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN, ItemTouchHelper.RIGHT) {
