@@ -1,4 +1,4 @@
-# GymRoutineDagger
+# GymRoutine
 App to keep track of your gym routine. Room for local data storage.
 
 ## Screenshots
