@@ -1,8 +1,13 @@
 # GymRoutine
-App to keep track of your gym routine. Room for local data storage.
+App to keep track of your gym routine.
+Start by picking from my 3 templates, and then modify your routine according to your personal preference.
+Add, Remove, or update Reps and Sets for your exercises.
 
 ## Screenshots
 <p>
+  <img src="/screenshots/Screenshot_1589318124.png" width="270" height="450"/>
+  <img src="/screenshots/Screenshot_1589318141.png" width="270" height="450"/>
+  <img src="/screenshots/Screenshot_1589319119.png" width="270" height="450"/>
 </p>
 
 ## Installation
@@ -10,8 +15,9 @@ Git clone the repository, import project in Android Studio, and run on an androi
 
 ## Architecture Overview
 This application makes use of the MVVM architectural pattern. 
-Our project follows: Activity -> ViewModel -> Repository -> Remote Data Source -> Retrofit -> Webservice.
-LiveData is retrieved from the Remote Data Source into our repository, then it trickles down all the way to our ViewModel. The activities do not hold data.
+
+## Future AddOns
+This application will make use of Retrofit2 and a third party API to show Users a list of exercises ordered by category to pick from and add to their routines.
 
 ## External Dependencies
 - [Dagger2](https://dagger.dev/): Framework for compile-time dependency injection.
