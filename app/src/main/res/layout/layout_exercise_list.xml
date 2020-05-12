@@ -15,6 +15,8 @@
             android:layout_height="?attr/actionBarSize"
             android:layout_width="match_parent"
             app:layout_scrollFlags="enterAlways"
+            app:title="Gym Routine"
+            app:titleTextColor="@color/lightBeige"
             android:id="@+id/exercises_toolbar">
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
