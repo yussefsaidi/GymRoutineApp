@@ -70,11 +70,11 @@ public class ExerciseListActivity extends DaggerAppCompatActivity implements Vie
         if(template.equals(getString(R.string.template_ppl))){
             viewModel.createTemplatePpl();
         }
-        else if(template == getString(R.string.template_upperlower)) {
+        else if(template.equals(getString(R.string.template_upperlower))) {
             viewModel.createTemplateUl();
         }
 
-        else if(template == getString(R.string.template_fullbody)){
+        else if(template.equals(getString(R.string.template_fullbody))){
             viewModel.createTemplateFullbody();
         }
         }
