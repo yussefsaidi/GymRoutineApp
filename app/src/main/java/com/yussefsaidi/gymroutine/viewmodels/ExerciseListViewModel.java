@@ -184,74 +184,60 @@ public class ExerciseListViewModel extends ViewModel {
         categoryUpper.setCategory(true);
         categoryLower.setName("LOWER BODY (DAY 2)");
         categoryLower.setCategory(true);
-
         // Create Upper Body Exercises
         Exercise upperExercise1 = new Exercise();
         upperExercise1.setName("Flat Barbell Bench Press");
         upperExercise1.setSets("5");
         upperExercise1.setRepetitions("5");
-
         Exercise upperExercise2 = new Exercise();
         upperExercise2.setName("Overhead Press");
         upperExercise2.setSets("3");
         upperExercise2.setRepetitions("8-12");
-
         Exercise upperExercise3 = new Exercise();
         upperExercise3.setName("Incline Dumbbell Bench Press");
         upperExercise3.setSets("3");
         upperExercise3.setRepetitions("8-12");
-
         Exercise upperExercise4 = new Exercise();
         upperExercise4.setName("PullDowns");
         upperExercise4.setSets("3");
         upperExercise4.setRepetitions("8-12");
-
         Exercise upperExercise5 = new Exercise();
         upperExercise5.setName("Rows");
         upperExercise5.setSets("3");
         upperExercise5.setRepetitions("8-12");
-
         Exercise upperExercise6 = new Exercise();
         upperExercise6.setName("Biceps Curls");
         upperExercise6.setSets("3");
         upperExercise6.setRepetitions("8-12");
-
         Exercise upperExercise7 = new Exercise();
         upperExercise7.setName("Biceps Side Curls");
         upperExercise7.setSets("3");
         upperExercise7.setRepetitions("8-12");
-
         Exercise upperExercise8 = new Exercise();
         upperExercise8.setName("Triceps PushDowns");
         upperExercise8.setSets("3");
         upperExercise8.setRepetitions("8-12");
-
         Exercise upperExercise9 = new Exercise();
         upperExercise9.setName("Triceps PushAway");
         upperExercise9.setSets("3");
         upperExercise9.setRepetitions("8-12");
-
         // Create Lower Body Exercises
         Exercise lowerExercise1 = new Exercise();
         lowerExercise1.setName("Squats");
         lowerExercise1.setSets("5");
         lowerExercise1.setRepetitions("5");
-
         Exercise lowerExercise2 = new Exercise();
         lowerExercise2.setName("Romanian DeadLifts");
         lowerExercise2.setSets("3");
         lowerExercise2.setRepetitions("8-12");
-
         Exercise lowerExercise3 = new Exercise();
         lowerExercise3.setName("Lunges");
         lowerExercise3.setSets("3");
         lowerExercise3.setRepetitions("8-12");
-
         Exercise lowerExercise4 = new Exercise();
         lowerExercise4.setName("Calf Raises");
         lowerExercise4.setSets("5");
         lowerExercise4.setRepetitions("8-12");
-
         // Adding categories and exercises to list
         exerciseList.add(categoryUpper);
         exerciseList.add(upperExercise1);
@@ -278,6 +264,65 @@ public class ExerciseListViewModel extends ViewModel {
 
     public void createTemplateFullbody(){
 
-    }
+        List<Exercise> exerciseList = new ArrayList<Exercise>();
 
+        Exercise categoryFullBody = new Exercise();
+        categoryFullBody.setName("FULL BODY DAY");
+        categoryFullBody.setCategory(true);
+
+        Exercise fullExercise1 = new Exercise();
+        fullExercise1.setName("Squats");
+        fullExercise1.setSets("5");
+        fullExercise1.setRepetitions("5");
+        Exercise fullExercise2 = new Exercise();
+        fullExercise2.setName("Romanian DeadLift");
+        fullExercise2.setSets("3");
+        fullExercise2.setRepetitions("8-10");
+        Exercise fullExercise3 = new Exercise();
+        fullExercise3.setName("Calf Raises");
+        fullExercise3.setSets("3");
+        fullExercise3.setRepetitions("8-10");
+        Exercise fullExercise4 = new Exercise();
+        fullExercise4.setName("Flat Barbell BenchPress");
+        fullExercise4.setSets("3");
+        fullExercise4.setRepetitions("8-10");
+        Exercise fullExercise5 = new Exercise();
+        fullExercise5.setName("Overhead Press");
+        fullExercise5.setSets("3");
+        fullExercise5.setRepetitions("8-10");
+        Exercise fullExercise6 = new Exercise();
+        fullExercise6.setName("Pulldown Rows");
+        fullExercise6.setSets("3");
+        fullExercise6.setRepetitions("8-10");
+        Exercise fullExercise7 = new Exercise();
+        fullExercise7.setName("Rows");
+        fullExercise7.setSets("3");
+        fullExercise7.setRepetitions("8-10");
+        Exercise fullExercise8 = new Exercise();
+        fullExercise8.setName("Triceps PushDowns");
+        fullExercise8.setSets("3");
+        fullExercise8.setRepetitions("8-10");
+        Exercise fullExercise9 = new Exercise();
+        fullExercise9.setName("Dumbbell Curls");
+        fullExercise9.setSets("3");
+        fullExercise9.setRepetitions("8-10");
+
+        // Adding categories and exercises to list
+        exerciseList.add(categoryFullBody);
+        exerciseList.add(fullExercise1);
+        exerciseList.add(fullExercise2);
+        exerciseList.add(fullExercise3);
+        exerciseList.add(fullExercise4);
+        exerciseList.add(fullExercise5);
+        exerciseList.add(fullExercise6);
+        exerciseList.add(fullExercise7);
+        exerciseList.add(fullExercise8);
+        exerciseList.add(fullExercise9);
+
+        // Convert to array and insert into database
+        Exercise[] exercises = exerciseList.toArray(new Exercise[exerciseList.size()]);
+        exerciseRepository.insertExercises(exercises)
+                .subscribeOn(Schedulers.io())
+                .subscribe();
+    }
 }
