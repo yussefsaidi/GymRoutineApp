@@ -13,6 +13,7 @@ import android.view.View;
 import com.bumptech.glide.RequestManager;
 import com.yussefsaidi.gymroutine.R;
 import com.yussefsaidi.gymroutine.adapters.ExerciseRecyclerAdapter;
+import com.yussefsaidi.gymroutine.adapters.ExerciseViewHolder;
 import com.yussefsaidi.gymroutine.persistence.models.Exercise;
 import com.yussefsaidi.gymroutine.util.VerticalSpacingItemDecorator;
 import com.yussefsaidi.gymroutine.viewmodels.ExerciseListViewModel;
@@ -28,8 +29,6 @@ import io.reactivex.subscribers.DisposableSubscriber;
 
 public class ExerciseListActivity extends DaggerAppCompatActivity implements View.OnClickListener {
 
-    private static final int EDIT_MODE_DISABLED = 0;
-    private static final int EDIT_MODE_ENABLED = 1;
     private static final String TAG = "ExerciseListActivity";
 
     @Inject
@@ -40,9 +39,6 @@ public class ExerciseListActivity extends DaggerAppCompatActivity implements Vie
 
     @Inject
     RequestManager requestManager;
-
-    // ui
-
 
     // vars
     List<Exercise> exerciseList = new ArrayList<>();
@@ -73,7 +69,6 @@ public class ExerciseListActivity extends DaggerAppCompatActivity implements Vie
         else if(template.equals(getString(R.string.template_upperlower))) {
             viewModel.createTemplateUl();
         }
-
         else if(template.equals(getString(R.string.template_fullbody))){
             viewModel.createTemplateFullbody();
         }
@@ -84,6 +79,7 @@ public class ExerciseListActivity extends DaggerAppCompatActivity implements Vie
 
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+
             int fromPosition = viewHolder.getAdapterPosition();
             int toPosition = target.getAdapterPosition();
             Exercise fromExercise = exerciseList.get(fromPosition);
@@ -96,8 +92,6 @@ public class ExerciseListActivity extends DaggerAppCompatActivity implements Vie
 
             Collections.swap(exerciseList, fromPosition, toPosition);
             adapter.notifyItemMoved(fromPosition, toPosition);
-
-
             return true;
         }
 
@@ -125,12 +119,10 @@ public class ExerciseListActivity extends DaggerAppCompatActivity implements Vie
                         exerciseList.addAll(exercises);
                         adapter.setExercises(exercises);
                     }
-
                     @Override
                     public void onError(Throwable t) {
                         Log.d(TAG, "onError: CANT GET EXERCISES FROM DATABASE");
                     }
-
                     @Override
                     public void onComplete() {
 
@@ -146,8 +138,6 @@ public class ExerciseListActivity extends DaggerAppCompatActivity implements Vie
         mRecyclerView.setAdapter(adapter);
         itemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
-
-
 
     private void deleteExercise(Exercise exercise){
         viewModel.deleteExercise(exercise);

@@ -19,7 +19,6 @@ public class ExerciseListViewModel extends ViewModel {
     private static final String TAG = "ExerciseListViewModel";
     private MutableLiveData<List<Exercise>> exerciseListLiveData;
 
-
     @Inject
     ExerciseRepository exerciseRepository;
 
@@ -29,7 +28,6 @@ public class ExerciseListViewModel extends ViewModel {
         Log.d(TAG, "ExerciseListViewModel: viewmodel is working");
         exerciseListLiveData = new MutableLiveData<>();
     }
-
 
     public Flowable<List<Exercise>> getAllExercises(){
         return exerciseRepository.getAllExercises();

@@ -31,7 +31,7 @@ public class ExerciseViewHolder extends RecyclerView.ViewHolder implements View.
     EditText editExerciseName, editSets, editReps, editCategoryName;
     ExerciseRepository exerciseRepository;
     Exercise mExercise;
-    private LinearLayout exerciseSubInfo;
+    private LinearLayout exerciseSubInfo, exerciseInfo;
     private Button editExerciseButton, editCategoryButton;
     private ImageButton checkExerciseContainer, checkCategoryContainer;
     View exerciseItem, categoryItem, item;
@@ -45,6 +45,7 @@ public class ExerciseViewHolder extends RecyclerView.ViewHolder implements View.
         this.exerciseRepository = exerciseRepository;
 
         // For editing exercises
+        exerciseInfo = itemView.findViewById(R.id.exercise_info);
         viewExerciseName = itemView.findViewById(R.id.exercise_text_name);
         editExerciseName = itemView.findViewById(R.id.exercise_edit_name); // GONE by default
         viewSets = itemView.findViewById(R.id.exercise_sets);
@@ -218,6 +219,5 @@ public class ExerciseViewHolder extends RecyclerView.ViewHolder implements View.
         exerciseRepository.updateExercises(mExercise)
                 .subscribeOn(Schedulers.io())
                 .subscribe();
-
     }
 }

@@ -17,7 +17,8 @@
             app:layout_scrollFlags="enterAlways"
             app:title="Gym Routine"
             app:titleTextColor="@color/lightBeige"
-            android:id="@+id/exercises_toolbar">
+            android:id="@+id/exercises_toolbar"
+            app:titleTextAppearance="@style/app_title_text">
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
