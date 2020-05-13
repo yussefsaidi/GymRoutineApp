@@ -6,8 +6,8 @@ Add, Remove, or update Reps and Sets for your exercises.
 ## Screenshots
 <p>
   <img src="/screenshots/Screenshot_1589407112.png" width="270" height="450"/>
+  <img src="/screenshots/Screenshot_1589407122.png" width="270" height="450"/>
   <img src="/screenshots/Screenshot_1589407130.png" width="270" height="450"/>
-  <img src="/screenshots/Screenshot_1589407134.png" width="270" height="450"/>
 </p>
 
 ## Installation
